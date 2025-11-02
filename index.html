@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mehran - Cybersecurity Expert</title>
+    <title>Mehran Goudarzi - Cybersecurity Expert</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -118,12 +118,12 @@
             50% { opacity: 0.9; text-shadow: 0 0 20px #00ff41, 0 0 30px #00d4ff; }
         }
 
-        nav {
+        nav.desktop-nav {
             display: flex;
             gap: 30px;
         }
 
-        nav a {
+        nav.desktop-nav a {
             color: #ffffff;
             text-decoration: none;
             font-size: 14px;
@@ -131,7 +131,7 @@
             position: relative;
         }
 
-        nav a::after {
+        nav.desktop-nav a::after {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -142,13 +142,88 @@
             transition: width 0.3s ease;
         }
 
-        nav a:hover {
+        nav.desktop-nav a:hover {
             color: #00ff41;
             text-shadow: 0 0 10px #00ff41;
         }
 
-        nav a:hover::after {
+        nav.desktop-nav a:hover::after {
             width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #00ff41;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Mobile Menu - تغییرات اینجا */
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #00ff41;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px; /* فاصله بیشتر بین آیتم‌ها */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-100%);
+            transition: all 0.3s ease;
+            z-index: 99;
+            padding: 20px 0; /* padding کلی برای منو */
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            padding: 20px 40px; /* padding افقی و عمودی بیشتر برای مرتب‌تر شدن */
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1); /* border شفاف‌تر */
+            font-size: 16px; /* فونت بزرگ‌تر */
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease; /* transition برای hover */
+            display: block; /* مطمئن می‌شیم بلاک باشه */
+        }
+
+        .mobile-menu a:hover {
+            color: #00ff41;
+            background: rgba(0, 255, 65, 0.1); /* افکت hover برای زیبایی */
+            text-shadow: 0 0 10px #00ff41;
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: none;
         }
 
         /* Sections */
@@ -176,8 +251,14 @@
             font-weight: bold;
             margin-bottom: 20px;
             color: #00ff41;
+            animation: slideInLeft 0.8s ease;
             text-shadow: 0 0 20px #00ff41, 0 0 40px #00d4ff;
             position: relative;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .hero-content h2 {
@@ -350,6 +431,8 @@
         @keyframes progress {
             to { width: 90%; }
         }
+
+        .code-block {
             background: rgba(0, 0, 0, 0.9);
             border-left: 3px solid #00ff41;
             padding: 20px;
@@ -418,7 +501,7 @@
             transform: scale(1.2) rotate(360deg);
         }
 
-        /* Enhanced Glitch Effect - Hacker Style */
+        /* Enhanced Glitch Effect - Hacker style */
         .glitch {
             position: relative;
             color: #00ff41;
@@ -427,7 +510,7 @@
 
         .glitch::before,
         .glitch::after {
-            content: attr(data-text); /* Use data-text for sync */
+            content: attr(data-text);
             position: absolute;
             top: 0;
             left: 0;
@@ -441,7 +524,6 @@
             text-shadow: -2px 0 #ff006e;
             clip: rect(0, 900px, 0, 0);
             animation: glitch-anim 2s infinite linear alternate-reverse;
-            z-index: -1;
         }
 
         .glitch::after {
@@ -449,7 +531,6 @@
             text-shadow: -2px 0 #00d4ff, 2px 0 #ff006e;
             clip: rect(0, 900px, 0, 0);
             animation: glitch-anim2 2s infinite linear alternate-reverse;
-            z-index: -2;
         }
 
         @keyframes glitch-anim {
@@ -505,18 +586,41 @@
         }
 
         @keyframes slideInLeft {
-            from { 
-                opacity: 0; 
-                transform: translateX(-100px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateX(0); 
-            }
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav.desktop-nav {
+                display: none;
+            }
+
+            header { 
+                padding: 15px 20px; 
+            }
+
+            .logo {
+                font-size: 22px;
+                letter-spacing: 2px;
+            }
+
+            /* تنظیمات موبایل برای منو */
+            .mobile-menu {
+                top: 60px; /* تنظیم top بر اساس padding header */
+                padding: 15px 0;
+                gap: 8px; /* فاصله کمتر در موبایل */
+            }
+
+            .mobile-menu a {
+                padding: 18px 30px; /* padding کوچیک‌تر در موبایل */
+                font-size: 15px;
+            }
+
             .hero-content h1 { 
                 font-size: 32px; 
                 margin-bottom: 15px;
@@ -528,23 +632,6 @@
             .hero-content p {
                 font-size: 14px;
                 max-width: 100%;
-            }
-            header { 
-                padding: 15px 20px; 
-                flex-direction: column; 
-                gap: 15px; 
-            }
-            .logo {
-                font-size: 22px;
-                letter-spacing: 2px;
-            }
-            nav { 
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-            nav a { 
-                margin-left: 0;
-                font-size: 12px;
             }
             section { 
                 padding: 60px 20px; 
@@ -610,11 +697,22 @@
             }
             .glitch::before,
             .glitch::after {
-                animation-duration: 1.5s; /* Slower on mobile for performance */
+                animation-duration: 1.5s;
             }
         }
 
         @media (max-width: 480px) {
+            /* تنظیمات بیشتر برای موبایل کوچیک */
+            .mobile-menu {
+                gap: 5px;
+                padding: 10px 0;
+            }
+
+            .mobile-menu a {
+                padding: 15px 20px;
+                font-size: 14px;
+            }
+
             .hero-content h1 { 
                 font-size: 24px; 
                 text-shadow: 0 0 15px #00ff41, 0 0 25px #00d4ff;
@@ -631,14 +729,6 @@
             }
             .logo {
                 font-size: 18px;
-            }
-            nav {
-                flex-direction: column;
-                gap: 8px;
-                width: 100%;
-            }
-            nav a { 
-                font-size: 11px;
             }
             section { 
                 padding: 40px 15px; 
@@ -691,7 +781,7 @@
             }
             .glitch::before,
             .glitch::after {
-                animation-duration: 1s; /* Even slower on small screens */
+                animation-duration: 1s;
             }
         }
     </style>
@@ -701,19 +791,30 @@
 
     <header>
         <div class="logo">MEHRAN</div>
-        <nav>
+        <nav class="desktop-nav">
             <a href="#about">ABOUT</a>
             <a href="#expertise">EXPERTISE</a>
             <a href="#skills">SKILLS</a>
             <a href="#contact">CONTACT</a>
         </nav>
+        <nav class="mobile-menu">
+            <a href="#about">ABOUT</a>
+            <a href="#expertise">EXPERTISE</a>
+            <a href="#skills">SKILLS</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
 
     <div class="content-wrapper">
         <section class="hero" id="about">
             <div class="scan-line"></div>
             <div class="hero-content">
-                <h1 class="slide-in-left" data-text="CYBERSECURITY EXPERT">CYBERSECURITY EXPERT</h1>
+                <h1 class="glitch slide-in-left" data-text="CYBERSECURITY EXPERT">CYBERSECURITY EXPERT</h1>
                 <h2>Penetration Testing | Vulnerability Assessment | Security Consulting</h2>
                 <p>
                     Threats don't wait. Neither do I. In a landscape where adversaries operate 24/7, your defense strategy must be equally relentless. 
@@ -769,7 +870,7 @@
                 <div class="expertise-card">
                     <div class="scan-line"></div>
                     <h3>📊 Security Audit</h3>
-                    <p>Comprehensive compliance audits (SOC, ISO 27001) and security posture assessments across all layers.</p>
+                    <p>Comprehensive compliance audits (SOC 2, ISO 27001) and security posture assessments across all layers.</p>
                 </div>
             </div>
         </section>
@@ -851,8 +952,26 @@
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth' });
                 }
+                // Close mobile menu if open
+                const mobileMenu = document.querySelector('.mobile-menu');
+                const hamburger = document.querySelector('.hamburger');
+                if (mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
             });
         });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+        }
 
         // Typing effect for terminal
         const terminal = document.querySelector('.terminal');
@@ -875,28 +994,23 @@
             const h1 = document.querySelector('.hero-content h1');
             
             if (h1) {
-                // Set data-text for sync
                 h1.setAttribute('data-text', h1.textContent);
                 
-                // Add slide-in class (one-time animation)
                 h1.classList.add('slide-in-left');
                 
-                // After slide completes, immediately start glitch (no delay, no repeat of slide)
                 setTimeout(() => {
                     h1.classList.remove('slide-in-left');
                     h1.classList.add('glitch');
                     
-                    // Subtle random restarts for variation in glitch, but no slide
                     setInterval(() => {
                         h1.style.animation = 'none';
                         void h1.offsetWidth;
                         h1.style.animation = 'glitch 0.3s linear infinite';
-                    }, Math.random() * 3000 + 2000); // Every 2-5 seconds for subtle variation
-                }, 1500); // Matches slide duration
+                    }, Math.random() * 3000 + 2000);
+                }, 1500);
             }
         }
 
-        // Run on page load
         setTimeout(startSlideAndGlitch, 200);
 
         // Initialize skill bars with random percentages
@@ -904,37 +1018,28 @@
             const skillBars = document.querySelectorAll('.skill-progress');
             
             skillBars.forEach((bar, index) => {
-                const randomWidth = 70 + Math.floor(Math.random() * 16); // 70 to 85
+                const randomWidth = 70 + Math.floor(Math.random() * 16);
                 
-                // Reset
                 bar.style.removeProperty('width');
                 bar.style.removeProperty('animation');
                 
-                // Trigger reflow
                 void bar.offsetHeight;
                 
-                // Set initial state
                 bar.style.width = '0%';
                 
-                // Trigger reflow again
                 void bar.offsetHeight;
                 
-                // Apply animation with the random width
                 bar.style.setProperty('width', randomWidth + '%', 'important');
                 bar.style.setProperty('animation', 'progress 2s ease forwards', 'important');
             });
         }
 
-        // Run with delay
-        setTimeout(() => {
-            initializeSkillBars();
-        }, 300);
+        setTimeout(initializeSkillBars, 300);
 
-        // Parallax & Scroll Effects (removed matrix-bg parallax and scan-line speed change)
+        // Parallax & Scroll Effects
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             
-            // Expertise cards tilt effect
             document.querySelectorAll('.expertise-card').forEach((card) => {
                 const rect = card.getBoundingClientRect();
                 const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
@@ -946,7 +1051,6 @@
                 }
             });
 
-            // Section headers glow animation on scroll
             document.querySelectorAll('section h2').forEach(h2 => {
                 const rect = h2.getBoundingClientRect();
                 if (rect.top < window.innerHeight * 0.7) {
